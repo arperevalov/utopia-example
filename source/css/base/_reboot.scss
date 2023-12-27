@@ -1,0 +1,89 @@
+/* stylelint-disable no-duplicate-selectors -- already in 'node_modules/bootstrap/scss/reboot.scss', but we need it */
+/* stylelint-disable scss/selector-nest-combinators, selector-max-type, property-no-vendor-prefix, order/properties-order -- its ok for reboot */
+
+// Reboot
+
+button,
+select,
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+::file-selector-button {
+    // Safari 15 renders some components with `color: -apple-system-blue;`.
+    // So we needed to add the following reset declarations:
+    color: inherit;
+}
+
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+    // Mobile Safari renders some shadows around interactive elements.
+    // So we needed to add the following reset declarations:
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+
+select {
+    appearance: none;
+
+    /* autoprefixer: ignore next */
+    -webkit-appearance: none;
+}
+
+svg {
+    // Keep images from scaling beyond the width of their parents.
+    display: inline-block;
+
+    // Part 1: Set a maximum relative to the parent.
+    max-width: 100%;
+
+    // Part 2: Override the height to auto, otherwise images will be stretched,
+    // when setting a width and height attribute on the img element.
+    height: auto;
+}
+
+picture {
+    // Keep images from scaling beyond the width of their parents.
+    display: inline-block;
+
+    // Part 1: Set a maximum relative to the parent.
+    max-width: 100%;
+
+    // Part 2: Override the height to auto, otherwise images will be stretched,
+    // when setting a width and height attribute on the img element.
+    height: auto;
+
+    > img {
+        // Part 1: Set a maximum relative to the parent.
+        max-width: 100%;
+
+        // Part 2: Override the height to auto, otherwise images will be stretched,
+        // when setting a width and height attribute on the img element.
+        height: auto;
+    }
+}
+
+iframe {
+    // Keep images from scaling beyond the width of their parents.
+    display: inline-block;
+
+    // Part 1: Set a maximum relative to the parent.
+    max-width: 100%;
+}
+
+video {
+    // Keep images from scaling beyond the width of their parents.
+    display: inline-block;
+
+    // Part 1: Set a maximum relative to the parent.
+    max-width: 100%;
+}
+
+* {
+    letter-spacing: var(--#{$prefix}letter-spacing, #{$letter-spacing});
+}
+
+/* stylelint-enable scss/selector-nest-combinators, selector-max-type, property-no-vendor-prefix, order/properties-order */
+/* stylelint-enable no-duplicate-selectors */

@@ -1,0 +1,87 @@
+<!-- beautify ignore:start -->
+{% set DEFAULT_SOURCES = [
+    ['(max-width: 991.98px)', '992x', 'lg'],
+    ['(max-width: 1399.98px)', '1400x', 'xxl']
+] %}
+
+{% set DEFAULT_OPTIONS = {} %}
+
+{% macro sources (url, alt, attrs={}, sources=DEFAULT_SOURCES, options=DEFAULT_OPTIONS) %}
+    {% set size = image_size(url) %}
+    {% set sources = image_sources(size, sources) %}
+    {% if size.width and size.height %}
+    {% set attrs = object_assign(attrs, {
+        style: '--image-width:' + size.width + ';' + '--image-height:' + size.height + ';' + (attrs.style | default(''))
+    }) %}
+    {% endif %}
+    <picture{% for k, v in attrs %}{% if k != 'img' %} {{ k }}="{{ v }}"{% endif %}{% endfor %}>
+        {% if size.type == 'png' or size.type == 'jpg' or size.type == 'jpeg' %}
+
+        <!-- sources = {{ sources | dump | safe }} -->
+        {% if APP.ENV.PROD or APP.ENV.DEBUG %}
+        {% if APP.AVIF and not options.noavif %}{% for source in sources %}
+        <source{% if source[0] %} media="{{ source[0] }}"{% endif %} srcset="{{ require(url + '?resize=' + source[1] + '&format=avif&suffix=' + source[2]) }}" type="image/avif">
+        {% endfor %}{% endif %}
+        {% if APP.WEBP and not options.nowebp %}{% for source in sources %}
+        <source{% if source[0] %} media="{{ source[0] }}"{% endif %} srcset="{{ require(url + '?resize=' + source[1] + '&format=webp&suffix=' + source[2]) }}" type="image/webp">
+        {% endfor %}{% endif %}
+        {% endif %}
+
+        {% for source in sources %}
+        <source{% if source[0] %} media="{{ source[0] }}"{% endif %} srcset="{{ require(url + '?resize=' + source[1] + '&suffix=' + source[2]) }}" type="image/{{ size.type }}">
+        {% endfor %}
+
+        {% if APP.ENV.PROD or APP.ENV.DEBUG %}
+        {% if APP.AVIF and not options.noavif %}<source srcset="{{ require(url + '?resize=&format=avif') }}" type="image/avif">{% endif %}
+        {% if APP.WEBP and not options.nowebp %}<source srcset="{{ require(url + '?resize=&format=webp') }}" type="image/webp">{% endif %}
+        {% endif %}
+
+        {% endif %}
+        <img
+            src="{{ require(url) }}"
+            {% if not (attrs.img and attrs.img.loading) %}
+            loading="lazy"
+            {% endif %}
+            {% if size.width and size.height %}
+            width="{{ size.width }}"
+            height="{{ size.height }}"
+            intrinsicsize="{{ size.width }}x{{ size.height }}"
+            {% endif %}
+            {% if attrs.img %}{% for k, v in attrs.img %} {{ k }}="{{ v }}"{% endfor %}{% endif %}
+            {% if alt %}alt="{{ alt }}"{% endif %}
+        >
+    </picture>
+{% endmacro %}
+
+{% macro picture (url, alt, attrs={}, options=DEFAULT_OPTIONS) %}
+    {% set size = image_size(url) %}
+    {% if size.width and size.height %}
+    {% set attrs = object_assign(attrs, {
+        style: '--image-width:' + size.width + ';' + '--image-height:' + size.height + ';' + (attrs.style | default(''))
+    }) %}
+    {% endif %}
+    <picture{% for k, v in attrs %}{% if k != 'img' %} {{ k }}="{{ v }}"{% endif %}{% endfor %}>
+        {% if size.type == 'png' or size.type == 'jpg' or size.type == 'jpeg' %}
+
+        {% if APP.ENV.PROD or APP.ENV.DEBUG %}
+        {% if APP.AVIF and not options.noavif %}<source srcset="{{ require(url + '?resize=&format=avif') }}" type="image/avif">{% endif %}
+        {% if APP.WEBP and not options.nowebp %}<source srcset="{{ require(url + '?resize=&format=webp') }}" type="image/webp">{% endif %}
+        {% endif %}
+
+        {% endif %}
+        <img
+            src="{{ require(url) }}"
+            {% if not (attrs.img and attrs.img.loading) %}
+            loading="lazy"
+            {% endif %}
+            {% if size.width and size.height %}
+            width="{{ size.width }}"
+            height="{{ size.height }}"
+            intrinsicsize="{{ size.width }}x{{ size.height }}"
+            {% endif %}
+            {% if attrs.img %}{% for k, v in attrs.img %} {{ k }}="{{ v }}"{% endfor %}{% endif %}
+            {% if alt %}alt="{{ alt }}"{% endif %}
+        >
+    </picture>
+{% endmacro %}
+<!-- beautify ignore:end -->

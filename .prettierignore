@@ -1,0 +1,5 @@
+build/*
+node_modules/*
+source/js/external/*
+source/css/external/*
+**/*.{html,njk}

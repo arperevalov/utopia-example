@@ -1,0 +1,11 @@
+/* stylelint-disable scss/dollar-variable-default -- we not control third party code */
+
+// Bootstrap utilities
+
+// Add, remove, modify https://getbootstrap.com/docs/5.3/utilities/api/#add-remove-modify
+
+$utilities-merge: ();
+
+$utilities: map-merge($utilities, $utilities-merge);
+
+/* stylelint-enable scss/dollar-variable-default */

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html class="no-js" lang="{{ APP.LANGUAGE }}" data-public-path="{{ APP.PUBLIC_PATH }}"
+      data-node-env="{{ APP.ENV.NODE_ENV }}">
+<!-- set webpack public path on the fly https://webpack.js.org/guides/public-path/#set-value-on-the-fly -->
+
+<head>
+
+    <meta charset="utf-8">
+    <title>
+        {%- if PAGE.meta_title -%}
+        {{ PAGE.meta_title }}
+        {%- else -%}
+        {% if PAGE.homepage %}{{ PAGE.title or APP.TITLE }}{% else %}{{ PAGE.title }} | {{ APP.SHORT_NAME }}{% endif %}
+        {%- endif -%}
+    </title>
+    <meta name="description" content="{{ PAGE.description or APP.DESCRIPTION }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {% if APP.PUBLIC_PATH and APP.PUBLIC_PATH != '/' %}
+    <base href="{{ APP.PUBLIC_PATH }}">
+    {% endif %}
+
+    {% includeWith 'partials/head-js.html' %}
+
+    <!-- block-head -->
+    {% block head %}{% endblock %}
+    <!-- /block-head -->
+
+    {% includeWith 'partials/counters-head.html' %}
+
+    {% includeWith 'partials/open-graph.html' %}
+
+</head>
+
+<body class="{% block body_class %}{% endblock %}" data-component="IntersectionBlocks">
+
+    {% includeWith 'partials/counters-body-open.html' %}
+
+    {% block body %}{% endblock %}
+
+    {% includeWith 'partials/debug-vars.html' %}
+    {% includeWith 'partials/counters-body-close.html' %}
+
+</body>
+
+</html>

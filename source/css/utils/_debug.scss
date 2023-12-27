@@ -1,0 +1,31 @@
+@mixin debug-body($content) {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: $zindex-modal;
+
+    padding: 2px;
+
+    color: $white;
+    font-size: $font-size-sm;
+    line-height: 1;
+    white-space: nowrap;
+
+    background-color: $danger;
+
+    opacity: 0.5;
+    transform: translateY(100%);
+
+    transition: transform 0.3s;
+
+    @each $breakpoint in map-keys($grid-breakpoints) {
+        @include media-breakpoint-up($breakpoint) {
+            content: "Breakpoint=" + to-upper-case("#{$breakpoint} ") + $content;
+        }
+    }
+
+    html:hover &,
+    html:focus & {
+        transform: translateY(0);
+    }
+}

@@ -1,0 +1,137 @@
+/* stylelint-disable selector-max-type, selector-list-comma-newline-after, selector-nested-pattern -- copy from bootstrap */
+
+//
+// Headings
+//
+.h1 {
+    @extend h1;
+
+    // change `$h1-font-size` in `_variables.scss`
+    // for responsive use `@include media` or `@include fluid-clamp-font-size`
+}
+
+.h2 {
+    @extend h2;
+
+    // change `$h2-font-size` in `_variables.scss`
+    // for responsive use `@include media` or `@include fluid-clamp-font-size`
+}
+
+.h3 {
+    @extend h3;
+
+    // change `$h3-font-size` in `_variables.scss`
+    // for responsive use `@include media` or `@include fluid-clamp-font-size`
+}
+
+.h4 {
+    @extend h4;
+
+    // change `$h4-font-size` in `_variables.scss`
+    // for responsive use `@include media` or `@include fluid-clamp-font-size`
+}
+
+.h5 {
+    @extend h5;
+
+    // change `$h5-font-size` in `_variables.scss`
+    // for responsive use `@include media` or `@include fluid-clamp-font-size`
+}
+
+.h6 {
+    @extend h6;
+
+    // change `$h6-font-size` in `_variables.scss`
+    // for responsive use `@include media` or `@include fluid-clamp-font-size`
+}
+
+.subheading {
+    display: $subheadings-display;
+
+    color: $subheadings-color;
+    font-weight: $subheadings-font-weight;
+    font-size: $subheadings-font-size;
+    font-family: $subheadings-font-family;
+    font-style: $subheadings-font-style;
+    line-height: $subheadings-line-height;
+}
+
+.lead {
+    @include font-size($lead-font-size);
+    font-weight: $lead-font-weight;
+}
+
+// Type display classes
+@each $display, $font-size in $display-font-sizes {
+    .display-#{$display} {
+        @include font-size($font-size);
+        font-weight: $display-font-weight;
+        line-height: $display-line-height;
+    }
+}
+
+//
+// Emphasis
+//
+.small {
+    @extend small;
+}
+
+.mark {
+    @extend mark;
+}
+
+//
+// Lists
+//
+
+.list-unstyled {
+    @include list-unstyled();
+}
+
+// Inline turns list items into inline-block
+.list-inline {
+    @include list-unstyled();
+}
+
+.list-inline-item {
+    display: inline-block;
+
+    &:not(:last-child) {
+        margin-right: $list-inline-padding;
+    }
+}
+
+//
+// Misc
+//
+
+// Builds on `abbr`
+.initialism {
+    @include font-size($initialism-font-size);
+    text-transform: uppercase;
+}
+
+// Blockquotes
+.blockquote {
+    @include font-size($blockquote-font-size);
+    margin-bottom: $blockquote-margin-y;
+
+    > :last-child {
+        margin-bottom: 0;
+    }
+}
+
+.blockquote-footer {
+    @include font-size($blockquote-footer-font-size);
+    margin-top: calc(-1 * $blockquote-margin-y);
+    margin-bottom: $blockquote-margin-y;
+
+    color: $blockquote-footer-color;
+
+    &::before {
+        content: "\2014\00A0"; // em dash, nbsp
+    }
+}
+
+/* stylelint-enable selector-max-type, selector-list-comma-newline-after, selector-nested-pattern -- copy from bootstrap */

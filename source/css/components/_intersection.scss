@@ -1,0 +1,119 @@
+.intersection {
+    html.js & {
+        &--block,
+        > .intersection__block {
+            $intersection-translate: translate3d(
+                var(--intersection-translate-x, 0),
+                var(--intersection-translate-y, 0),
+                var(--intersection-translate-z, 0)
+            );
+            $intersection-scale: scale(var(--intersection-scale, 1));
+            $intersection-rotate: rotate(var(--intersection-rotate, 0));
+
+            opacity: var(--intersection-fade, 1);
+            transform: $intersection-translate $intersection-scale $intersection-rotate;
+
+            will-change: transform, opacity;
+
+            transition:
+                opacity var(--intersection-duration-fade, $duration-default),
+                transform var(--intersection-duration-translate, $duration-default);
+            transition-delay: $intersection-transition-delay;
+            transition-timing-function: $ease-default;
+        }
+    }
+
+    &.is-intersecting {
+        &.intersection--block,
+        > .intersection__block {
+            html.js.is-page-transition-ready & {
+                opacity: 1;
+                transform: none;
+            }
+        }
+    }
+
+    &--duration-slow {
+        --intersection-duration-fade: #{$duration-slow};
+        --intersection-duration-translate: #{$duration-slow};
+    }
+
+    &--duration-normal {
+        --intersection-duration-fade: #{$duration-normal};
+        --intersection-duration-translate: #{$duration-normal};
+    }
+
+    &--duration-fast {
+        --intersection-duration-fade: #{$duration-fast};
+        --intersection-duration-translate: #{$duration-fast};
+    }
+
+    &--fade {
+        --intersection-fade: 0;
+    }
+
+    &--up {
+        --intersection-translate-y-up: 0;
+        --intersection-translate-y: var(--intersection-translate-y-up, 0);
+
+        &.is-intersection-downward {
+            --intersection-translate-y-up: 100%;
+        }
+
+        &.is-intersection-upward {
+            --intersection-translate-y-up: -100%;
+        }
+    }
+
+    &--down {
+        --intersection-translate-y-down: 0;
+        --intersection-translate-y: var(--intersection-translate-y-down, 0);
+
+        &.is-intersection-downward {
+            --intersection-translate-y-down: -100%;
+        }
+
+        &.is-intersection-upward {
+            --intersection-translate-y-down: 100%;
+        }
+    }
+
+    &--scale {
+        --intersection-scale: 1.15;
+    }
+
+    &--scale-in {
+        --intersection-scale-in: 0.85;
+        --intersection-scale: var(--intersection-scale-in, 0);
+    }
+
+    &--fade-up {
+        @extend .intersection--fade;
+        @extend .intersection--up;
+    }
+
+    &--fade-down {
+        @extend .intersection--fade;
+        @extend .intersection--down;
+    }
+
+    &--scale-up {
+        @extend .intersection--scale;
+        @extend .intersection--up;
+    }
+
+    &--scale-down {
+        @extend .intersection--scale;
+        @extend .intersection--down;
+    }
+
+    &--scale-in-up {
+        @extend .intersection--scale-in;
+        @extend .intersection--up;
+    }
+
+    &--scale-in-down {
+        @extend .intersection--scale-in;
+        @extend .intersection--down;
+    }
+}

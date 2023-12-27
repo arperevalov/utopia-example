@@ -1,0 +1,28 @@
+---
+title: Главная
+homepage: true
+description:
+og_image:
+---
+{% extends "partials/layouts/main.html" %}
+
+{% import "partials/macros/resize.html" as $resize %}
+{% import "partials/macros/img.html" as $img %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h1>Example Title</h1>
+            <div class="wysiwyg">
+                <p>
+                    <a href="/wysiwyg">Content from WYSIWYG-editor</a>
+                </p>
+                {{ $resize.picture('./upload/intecmedia-banner.jpg', 'IntecMedia') }}
+
+                {{ $resize.picture('./upload/sharp-dithering-test.png', 'IntecMedia') }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

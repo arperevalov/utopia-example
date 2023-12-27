@@ -1,0 +1,460 @@
+/* stylelint-disable scss/selector-nest-combinators, selector-max-type, plugin/selector-bem-pattern, selector-nested-pattern -- wysiwyg is semantic tags */
+.wysiwyg {
+    font-size: $paragraph-font-size;
+
+    a {
+        // dont customize here, instead of edit sass variables in `_variables.scss`
+
+        color: $link-color;
+        text-decoration: $link-decoration;
+
+        &:hover,
+        &:focus,
+        &:active {
+            color: $link-hover-color;
+            text-decoration: $link-hover-decoration;
+        }
+    }
+
+    p {
+        // dont customize here, `p` is raw tag
+
+        margin-bottom: $paragraph-margin-bottom;
+    }
+
+    p.lead {
+        // dont customize here, instead of edit `.lead` in `_bootstrap-type.scss`
+
+        @extend .lead;
+    }
+
+    h1,
+    .h1 {
+        // dont customize here, instead of edit `.h1` in `_bootstrap-type.scss`
+
+        @extend .h1;
+
+        small {
+            @extend .subheading;
+        }
+    }
+
+    h2,
+    .h2 {
+        // dont customize here, instead of edit `.h2` in `_bootstrap-type.scss`
+
+        @extend .h2;
+
+        small {
+            @extend .subheading;
+        }
+    }
+
+    h3,
+    .h3 {
+        // dont customize here, instead of edit `.h3` in `_bootstrap-type.scss`
+
+        @extend .h3;
+
+        small {
+            @extend .subheading;
+        }
+    }
+
+    h4,
+    .h4 {
+        // dont customize here, instead of edit `.h4` in `_bootstrap-type.scss`
+
+        @extend .h4;
+
+        small {
+            @extend .subheading;
+        }
+    }
+
+    h5,
+    .h5 {
+        // dont customize here, instead of edit `.h5` in `_bootstrap-type.scss`
+
+        @extend .h5;
+
+        small {
+            @extend .subheading;
+        }
+    }
+
+    h6,
+    .h6 {
+        // dont customize here, instead of edit `.h6` in `_bootstrap-type.scss`
+
+        @extend .h6;
+
+        small {
+            @extend .subheading;
+        }
+    }
+
+    // image with caption
+    figure {
+        // dont customize here, instead of edit sass variables in `_variables.scss`
+
+        @extend .figure;
+
+        margin-bottom: $img-spacer;
+
+        @include media-breakpoint-down(sm) {
+            display: block;
+
+            width: auto;
+            margin-right: auto;
+            margin-bottom: $img-spacer;
+            margin-left: auto;
+        }
+
+        // image aligment left
+        &.pull-left {
+            float: left;
+
+            margin-right: $img-spacer;
+            margin-bottom: $img-spacer;
+
+            @include media-breakpoint-down(sm) {
+                float: none;
+
+                margin-right: 0;
+            }
+        }
+
+        // image aligment right
+        &.pull-right {
+            float: right;
+
+            margin-bottom: $img-spacer;
+            margin-left: $img-spacer;
+
+            @include media-breakpoint-down(sm) {
+                float: none;
+
+                margin-left: 0;
+            }
+        }
+
+        // image aligment center
+        &.text-center {
+            display: block;
+            clear: both;
+
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        img {
+            @extend .figure-img;
+        }
+
+        // image text caption
+        figcaption {
+            @extend .figure-caption;
+        }
+    }
+
+    table caption {
+        // dont customize here, instead of edit sass variables in `_variables.scss`
+
+        font-size: $table-caption-font-size;
+    }
+
+    // default tables
+    table:not(.table) {
+        // dont customize here, instead of edit sass variables in `_variables.scss`
+
+        @extend .table;
+        @extend .caption-top;
+
+        @if $table-border-bordered {
+            @extend .table-bordered;
+        }
+        @if $table-border-striped {
+            @extend .table-striped;
+        }
+
+        width: 100%;
+        margin-bottom: $paragraph-margin-bottom;
+
+        > caption ~ tr:not(:first-child),
+        > caption ~ thead:not(:first-child) {
+            border-top-color: $table-border-color;
+            border-top-width: 0;
+
+            @if $table-border-bordered {
+                border-top-width: $table-border-width;
+            }
+        }
+    }
+
+    // disabled table
+    table:not(.table)[border="0"] {
+        // dont customize here
+
+        width: inherit;
+
+        border: 0;
+
+        background: transparent;
+
+        /* stylelint-disable-next-line selector-max-compound-selectors -- its ok for tables */
+        > :not(:first-child) {
+            border-top: 0;
+        }
+
+        > thead,
+        > tbody,
+        > tfoot {
+            /* stylelint-disable-next-line selector-max-compound-selectors -- its ok for tables */
+            > tr {
+                border: 0;
+
+                /* stylelint-disable-next-line selector-max-compound-selectors, max-nesting-depth -- its ok for tables */
+                > th,
+                > td {
+                    border: 0;
+
+                    background: transparent;
+
+                    box-shadow: none;
+                }
+            }
+        }
+    }
+
+    // table cells: collapse childs
+    td,
+    th {
+        // dont customize here
+
+        > *:first-child {
+            margin-top: 0;
+        }
+
+        > *:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    // ordered list
+    ol:not(.list-unstyled) {
+        // dont customize here, instead of edit sass variables in `_variables.scss`
+
+        margin-bottom: $paragraph-margin-bottom;
+        padding-left: $lists-indent;
+
+        ol,
+        ul {
+            // nested without margin-bottom
+            margin-bottom: 0;
+        }
+
+        > li {
+            margin-bottom: $lists-margin-bottom;
+
+            counter-increment: ol;
+
+            &:first-child {
+                counter-reset: ol calc(var(--start, 1) - 1);
+            }
+
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+
+            // numeric list
+            &::marker {
+                content: counter(ol, $ol-marker-list-style-type) "#{$ol-marker-symbol + $lists-marker-space}";
+
+                color: $ol-marker-color;
+            }
+        }
+    }
+
+    // unordered list
+    ul:not(.list-unstyled) {
+        // dont customize here, instead of edit sass variables in `_variables.scss`
+
+        margin-bottom: $paragraph-margin-bottom;
+        padding-left: $lists-indent;
+
+        ol,
+        ul {
+            // nested without margin-bottom
+            margin-bottom: 0;
+        }
+
+        > li {
+            margin-bottom: $lists-margin-bottom;
+
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+
+            // colored bulls
+            &::marker {
+                content: "#{$ul-marker-symbol + $lists-marker-space}";
+
+                color: $ul-marker-color;
+            }
+        }
+    }
+
+    // nested without margin-bottom
+    ol ol,
+    ul ul,
+    ol ul,
+    ul ol {
+        // dont customize here
+
+        margin-bottom: 0;
+
+        &:not(.list-unstyled) {
+            margin-bottom: 0;
+        }
+    }
+
+    // default image
+    img {
+        // dont customize here, instead of edit sass variables in `_variables.scss`
+
+        @extend .img-fluid;
+
+        // images fit width for SM-breakpoint
+        @include media-breakpoint-down(sm) {
+            display: block;
+
+            width: auto;
+            margin-right: auto;
+            margin-bottom: $img-spacer;
+            margin-left: auto;
+        }
+
+        // image with rounded border
+        &.img-rounded {
+            /* stylelint-disable-next-line declaration-no-important -- force set border radius */
+            border-radius: $border-radius !important;
+        }
+
+        // image with circle border
+        &.img-circle {
+            /* stylelint-disable-next-line declaration-no-important -- force set border radius */
+            border-radius: $border-radius !important;
+            border-radius: 50%;
+        }
+
+        // image aligment left
+        &[align="left"],
+        &.pull-left {
+            float: left;
+
+            margin-right: $img-spacer;
+            margin-bottom: $img-spacer;
+
+            @include media-breakpoint-down(sm) {
+                display: block;
+                float: none;
+
+                margin-right: auto;
+                margin-left: auto;
+            }
+        }
+
+        // image aligment right
+        &[align="right"],
+        &.pull-right {
+            float: right;
+
+            margin-bottom: $img-spacer;
+            margin-left: $img-spacer;
+
+            @include media-breakpoint-down(sm) {
+                display: block;
+                float: none;
+
+                margin-right: auto;
+                margin-left: auto;
+            }
+        }
+
+        // image aligment center
+        &[align="center"],
+        .text-center &,
+        &.text-center {
+            display: block;
+            clear: both;
+
+            margin-right: auto;
+            margin-left: auto;
+        }
+    }
+
+    picture {
+        // dont customize here, instead of edit sass variables in `_variables.scss`
+
+        margin-bottom: $img-spacer;
+
+        @include media-breakpoint-down(sm) {
+            display: block;
+
+            width: auto;
+            margin-right: auto;
+            margin-bottom: $img-spacer;
+            margin-left: auto;
+        }
+
+        // image aligment left
+        &.pull-left {
+            float: left;
+
+            margin-right: $img-spacer;
+            margin-bottom: $img-spacer;
+
+            @include media-breakpoint-down(sm) {
+                float: none;
+
+                margin-right: 0;
+            }
+        }
+
+        // image aligment right
+        &.pull-right {
+            float: right;
+
+            margin-bottom: $img-spacer;
+            margin-left: $img-spacer;
+
+            @include media-breakpoint-down(sm) {
+                float: none;
+
+                margin-left: 0;
+            }
+        }
+
+        // image aligment center
+        &.text-center {
+            display: block;
+            clear: both;
+
+            margin-right: auto;
+            margin-left: auto;
+        }
+    }
+
+    // blockquotes
+    blockquote {
+        // dont customize here, instead of edit `.blockquote` in `_bootstrap-type.scss`
+
+        @extend .blockquote;
+
+        footer {
+            @extend .blockquote-footer;
+        }
+    }
+}
+/* stylelint-enable scss/selector-nest-combinators, selector-max-type, plugin/selector-bem-pattern, selector-nested-pattern */

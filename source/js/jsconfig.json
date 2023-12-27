@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "moduleResolution": "classic",
+        "target": "esnext",
+        "baseUrl": ".",
+        "paths": {
+            "~/*": ["./*"]
+        }
+    },
+    "include": ["**/*.js"],
+    "exclude": ["external"]
+}

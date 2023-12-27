@@ -1,0 +1,120 @@
+@use "sass:math";
+
+@function str-repeat($str, $n) {
+    $result: "";
+
+    @for $i from 1 through $n {
+        $result: $result + $str;
+    }
+    @return $result;
+}
+
+@function strip-unit($number) {
+    @if type-of($number) == "number" and not unitless($number) {
+        @return math.div($number, ($number * 0 + 1));
+    }
+
+    @return $number;
+}
+
+@function pow($x, $n) {
+    $ret: 1;
+
+    @if $n >= 0 {
+        @for $i from 1 through $n {
+            $ret: $ret * $x;
+        }
+    } @else {
+        @for $i from $n to 0 {
+            $ret: math.div($ret, $x);
+        }
+    }
+    @return $ret;
+}
+
+@function to-fixed($float, $digits: 6) {
+    $sass-precision: 5;
+    $pow: pow(10, $digits);
+
+    @return math.div(round($float * $pow), $pow);
+}
+
+@function str-replace($string, $search, $replace: "") {
+    $index: str-index($string, $search);
+
+    @if $index {
+        $result: str-slice($string, 1, $index - 1) + $replace;
+        $result: $result + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+
+        @return $result;
+    }
+
+    @return $string;
+}
+
+@function grid-percentage($column, $count) {
+    @return percentage(math.div($column, $count));
+}
+
+@function decimal-round($number, $digits: 0, $mode: round) {
+    $n: 1;
+
+    // $number must be a number
+    @if type-of($number) != number {
+        @warn '#{ $number } is not a number.';
+        @return $number;
+    }
+
+    // $digits must be a unitless number
+    @if type-of($digits) != number {
+        @warn '#{ $digits } is not a number.';
+        @return $number;
+    } @else if not unitless($digits) {
+        @warn '#{ $digits } has a unit.';
+        @return $number;
+    }
+    @if $digits > 0 {
+        @for $i from 1 through $digits {
+            $n: $n * 10;
+        }
+    }
+    @if $mode == round {
+        @return math.div(round($number * $n), $n);
+    } @else if $mode == ceil {
+        @return math.div(ceil($number * $n), $n);
+    } @else if $mode == floor {
+        @return math.div(floor($number * $n), $n);
+    } @else {
+        @warn '#{ $mode } is undefined keyword.';
+        @return $number;
+    }
+}
+
+@function type-of-calc($value) {
+    @if type-of($value) != "string" {
+        @return false;
+    }
+    @return str-index($value, "calc(") == 1 and str-index($value, ")") == str-length($value);
+}
+
+@function type-of-var($value) {
+    @if type-of($value) != "string" {
+        @return false;
+    }
+    @return str-index($value, "var(") == 1 and str-index($value, ")") == str-length($value);
+}
+
+@function negativify-value($value) {
+    @if type-of-calc($value) {
+        $result: str-slice($value, str-length("calc("), -1);
+        $result: calc(-1 * #{$result});
+
+        @return $result;
+    }
+    @if type-of-var($value) {
+        $result: calc(-1 * #{$value});
+
+        @return $result;
+    }
+    @return -$value;
+}
