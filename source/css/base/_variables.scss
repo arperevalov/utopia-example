@@ -281,12 +281,19 @@ $fluid-steps-negative-count: 2 !default;
 $fluid-steps-positive-count: 5 !default;
 
 $fluid-steps-min-width: 375px !default;
-$fluid-steps-min-size: 16px !default;
+$fluid-steps-min-size: 15px !default;
 $fluid-steps-min-scale: 1.2 !default;
 
+$fluid-steps-xl-width: map-get(
+    $map: $grid-breakpoints,
+    $key: "xl",
+) !default;
+$fluid-steps-xl-size: 19px !default;
+$fluid-steps-xl-scale: 1.2 !default;
+
 $fluid-steps-max-width: 1920px !default;
-$fluid-steps-max-size: 20px !default;
-$fluid-steps-max-scale: 1.25 !default;
+$fluid-steps-max-size: 28px !default;
+$fluid-steps-max-scale: 1.125 !default;
 
 // scss-docs-end fluid steps
 
@@ -316,10 +323,16 @@ $fluid-spacers-pairs: (
 ) !default;
 
 $fluid-spacers-min-width: 375px !default;
-$fluid-spacers-min-size: 16px !default;
+$fluid-spacers-min-size: 15px !default;
+
+$fluid-spacers-xl-width: map-get(
+    $map: $grid-breakpoints,
+    $key: "xl",
+) !default;
+$fluid-spacers-xl-size: 19px !default;
 
 $fluid-spacers-max-width: 1920px !default;
-$fluid-spacers-max-size: 20px !default;
+$fluid-spacers-max-size: 28px !default;
 
 // scss-docs-end fluid steps
 
@@ -327,6 +340,12 @@ $fluid-spacers-max-size: 20px !default;
 
 $fluid-gutter-min-width: 375px !default;
 $fluid-gutter-min-size: 9px !default;
+
+$fluid-gutter-xl-width: map-get(
+    $map: $grid-breakpoints,
+    $key: "xl",
+) !default;
+$fluid-gutter-xl-size: 20px !default;
 
 $fluid-gutter-max-width: 1920px !default;
 $fluid-gutter-max-size: 48px !default;
